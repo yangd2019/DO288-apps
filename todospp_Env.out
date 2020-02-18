@@ -1,0 +1,10 @@
+PATH=/opt/app-root/src/node_modules/.bin/:/opt/app-root/src/.npm-global/bin/:/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+TERM=xterm
+HOSTNAME=todoapp-1-svwmr
+DATABASE_USER=todoapp
+DATABASE_INIT=false
+DATABASE_NAME=todo
+DATABASE_PASSWORD=redhat123
+DATABASE_SVC=tododb
+KUBERNETES_SERVICE_HOST=172.30.0.1
+TODOAPP_PORT_8080_TCP_PORT=8080
