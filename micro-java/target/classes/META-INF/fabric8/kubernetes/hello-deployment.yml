@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    fabric8.io/git-commit: 3a16fd989df9399a5ea4bca7ab57741f033ad390
+    fabric8.io/git-commit: 070ec115a78d74b5645981cdb3b3529925dabea5
     fabric8.io/git-branch: micro-config
     fabric8.io/git-url: https://github.com/yangd2019/DO288-apps
   labels:
@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       annotations:
-        fabric8.io/git-commit: 3a16fd989df9399a5ea4bca7ab57741f033ad390
+        fabric8.io/git-commit: 070ec115a78d74b5645981cdb3b3529925dabea5
         fabric8.io/git-branch: micro-config
         fabric8.io/git-url: https://github.com/yangd2019/DO288-apps
       labels:

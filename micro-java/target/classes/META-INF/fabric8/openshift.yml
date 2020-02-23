@@ -6,7 +6,7 @@ items:
   kind: Service
   metadata:
     annotations:
-      fabric8.io/git-commit: 3a16fd989df9399a5ea4bca7ab57741f033ad390
+      fabric8.io/git-commit: 070ec115a78d74b5645981cdb3b3529925dabea5
       fabric8.io/git-branch: micro-config
       fabric8.io/git-url: https://github.com/yangd2019/DO288-apps
       prometheus.io/port: "9779"
@@ -32,7 +32,7 @@ items:
   kind: DeploymentConfig
   metadata:
     annotations:
-      fabric8.io/git-commit: 3a16fd989df9399a5ea4bca7ab57741f033ad390
+      fabric8.io/git-commit: 070ec115a78d74b5645981cdb3b3529925dabea5
       fabric8.io/git-branch: micro-config
       fabric8.io/git-url: https://github.com/yangd2019/DO288-apps
     labels:
@@ -55,7 +55,7 @@ items:
     template:
       metadata:
         annotations:
-          fabric8.io/git-commit: 3a16fd989df9399a5ea4bca7ab57741f033ad390
+          fabric8.io/git-commit: 070ec115a78d74b5645981cdb3b3529925dabea5
           fabric8.io/git-branch: micro-config
           fabric8.io/git-url: https://github.com/yangd2019/DO288-apps
         labels:
@@ -99,7 +99,7 @@ items:
   kind: Route
   metadata:
     annotations:
-      fabric8.io/git-commit: 3a16fd989df9399a5ea4bca7ab57741f033ad390
+      fabric8.io/git-commit: 070ec115a78d74b5645981cdb3b3529925dabea5
       fabric8.io/git-branch: micro-config
       fabric8.io/git-url: https://github.com/yangd2019/DO288-apps
     labels:
