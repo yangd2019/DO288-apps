@@ -3,7 +3,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    fabric8.io/git-commit: 070ec115a78d74b5645981cdb3b3529925dabea5
+    fabric8.io/git-commit: ff5ab13fb1ae15c6f3ac33633e9abb8bceb9be26
     fabric8.io/git-branch: micro-config
     fabric8.io/git-url: https://github.com/yangd2019/DO288-apps
   labels:

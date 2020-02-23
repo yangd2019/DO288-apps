@@ -1,0 +1,155 @@
+{
+  "apiVersion" : "apps.openshift.io/v1",
+  "kind" : "DeploymentConfig",
+  "metadata" : {
+    "annotations" : {
+      "fabric8.io/git-branch" : "micro-config",
+      "fabric8.io/git-commit" : "ff5ab13fb1ae15c6f3ac33633e9abb8bceb9be26",
+      "fabric8.io/git-url" : "https://github.com/yangd2019/DO288-apps"
+    },
+    "creationTimestamp" : "2020-02-23T18:48:29Z",
+    "generation" : 4,
+    "labels" : {
+      "app" : "hello",
+      "group" : "com.redhat.training.openshift",
+      "provider" : "fabric8",
+      "version" : "1.0"
+    },
+    "name" : "hello",
+    "namespace" : "yangd2019-micro-java",
+    "resourceVersion" : "55923342",
+    "selfLink" : "/apis/apps.openshift.io/v1/namespaces/yangd2019-micro-java/deploymentconfigs/hello",
+    "uid" : "1566dabc-566d-11ea-9047-0a580a81002e"
+  },
+  "spec" : {
+    "replicas" : 1,
+    "revisionHistoryLimit" : 2,
+    "selector" : {
+      "app" : "hello",
+      "group" : "com.redhat.training.openshift",
+      "provider" : "fabric8"
+    },
+    "strategy" : {
+      "activeDeadlineSeconds" : 21600,
+      "resources" : { },
+      "rollingParams" : {
+        "intervalSeconds" : 1,
+        "maxSurge" : "25%",
+        "maxUnavailable" : "25%",
+        "timeoutSeconds" : 3600,
+        "updatePeriodSeconds" : 1
+      },
+      "type" : "Rolling"
+    },
+    "template" : {
+      "metadata" : {
+        "annotations" : {
+          "fabric8.io/git-branch" : "micro-config",
+          "fabric8.io/git-commit" : "ff5ab13fb1ae15c6f3ac33633e9abb8bceb9be26",
+          "fabric8.io/git-url" : "https://github.com/yangd2019/DO288-apps"
+        },
+        "labels" : {
+          "app" : "hello",
+          "group" : "com.redhat.training.openshift",
+          "provider" : "fabric8",
+          "version" : "1.0"
+        }
+      },
+      "spec" : {
+        "containers" : [ {
+          "env" : [ {
+            "name" : "KUBERNETES_NAMESPACE",
+            "valueFrom" : {
+              "fieldRef" : {
+                "apiVersion" : "v1",
+                "fieldPath" : "metadata.namespace"
+              }
+            }
+          } ],
+          "envFrom" : [ {
+            "configMapRef" : {
+              "name" : "env-config"
+            }
+          } ],
+          "image" : "hello:1.0",
+          "imagePullPolicy" : "IfNotPresent",
+          "name" : "thorntail-v2",
+          "ports" : [ {
+            "containerPort" : 8080,
+            "name" : "http",
+            "protocol" : "TCP"
+          }, {
+            "containerPort" : 9779,
+            "name" : "prometheus",
+            "protocol" : "TCP"
+          }, {
+            "containerPort" : 8778,
+            "name" : "jolokia",
+            "protocol" : "TCP"
+          } ],
+          "resources" : { },
+          "securityContext" : {
+            "privileged" : false,
+            "procMount" : "Default"
+          },
+          "terminationMessagePath" : "/dev/termination-log",
+          "terminationMessagePolicy" : "File"
+        } ],
+        "dnsPolicy" : "ClusterFirst",
+        "restartPolicy" : "Always",
+        "schedulerName" : "default-scheduler",
+        "securityContext" : { },
+        "terminationGracePeriodSeconds" : 30
+      }
+    },
+    "test" : false,
+    "triggers" : [ {
+      "type" : "ConfigChange"
+    }, {
+      "imageChangeParams" : {
+        "automatic" : true,
+        "containerNames" : [ "thorntail-v2" ],
+        "from" : {
+          "kind" : "ImageStreamTag",
+          "name" : "hello:1.0",
+          "namespace" : "yangd2019-micro-java"
+        }
+      },
+      "type" : "ImageChange"
+    } ]
+  },
+  "status" : {
+    "availableReplicas" : 1,
+    "conditions" : [ {
+      "lastTransitionTime" : "2020-02-23T18:49:06Z",
+      "lastUpdateTime" : "2020-02-23T18:49:06Z",
+      "message" : "Deployment config has minimum availability.",
+      "status" : "True",
+      "type" : "Available"
+    }, {
+      "lastTransitionTime" : "2020-02-23T19:01:01Z",
+      "lastUpdateTime" : "2020-02-23T19:01:01Z",
+      "message" : "replication controller \"hello-2\" is waiting for pod \"hello-2-deploy\" to run",
+      "status" : "Unknown",
+      "type" : "Progressing"
+    } ],
+    "details" : {
+      "causes" : [ {
+        "imageTrigger" : {
+          "from" : {
+            "kind" : "DockerImage",
+            "name" : "image-registry.openshift-image-registry.svc:5000/yangd2019-micro-java/hello@sha256:71a53a025a3e8511d034dbffb650b535100f1690b5ce800e8f20912508b01b97"
+          }
+        },
+        "type" : "ImageChange"
+      } ],
+      "message" : "image change"
+    },
+    "latestVersion" : 2,
+    "observedGeneration" : 3,
+    "readyReplicas" : 1,
+    "replicas" : 1,
+    "unavailableReplicas" : 0,
+    "updatedReplicas" : 0
+  }
+}
