@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "before calling run.."
+# Make Apache show 'debug' level logs during start up
+exec /usr/libexec/s2i/run
