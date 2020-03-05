@@ -1,0 +1,401 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-03-03T23:36:55Z"
+    generation: 1
+    labels:
+      app: backend
+    name: backend
+    namespace: yangd2019-review-service
+    resourceVersion: "64953239"
+    selfLink: /apis/image.openshift.io/v1/namespaces/yangd2019-review-service/imagestreams/backend
+    uid: ddf4aadd-5da7-11ea-bc92-0a580a800004
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/yangd2019-review-service/backend
+    publicDockerImageRepository: default-route-openshift-image-registry.apps.ocp-eu2.prod.nextcle.com/yangd2019-review-service/backend
+    tags:
+    - items:
+      - created: "2020-03-03T23:39:44Z"
+        dockerImageReference: image-registry.openshift-image-registry.svc:5000/yangd2019-review-service/backend@sha256:12c279c9fddc21c1f8014dbe08a5f1a6035e6f79e515271207779b362c3b8ccd
+        generation: 1
+        image: sha256:12c279c9fddc21c1f8014dbe08a5f1a6035e6f79e515271207779b362c3b8ccd
+      tag: latest
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/image.dockerRepositoryCheck: "2020-03-03T22:53:37Z"
+    creationTimestamp: "2020-03-03T22:53:36Z"
+    generation: 2
+    labels:
+      app: tododb
+    name: tododb
+    namespace: yangd2019-review-service
+    resourceVersion: "64924196"
+    selfLink: /apis/image.openshift.io/v1/namespaces/yangd2019-review-service/imagestreams/tododb
+    uid: d0f55217-5da1-11ea-a9dc-0a580a820004
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: registry.access.redhat.com/rhscl/mysql-57-rhel7
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/rhscl/mysql-57-rhel7
+      generation: 2
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/yangd2019-review-service/tododb
+    publicDockerImageRepository: default-route-openshift-image-registry.apps.ocp-eu2.prod.nextcle.com/yangd2019-review-service/tododb
+    tags:
+    - items:
+      - created: "2020-03-03T22:53:37Z"
+        dockerImageReference: registry.access.redhat.com/rhscl/mysql-57-rhel7@sha256:9a781abe7581cc141e14a7e404ec34125b3e89c008b14f4e7b41e094fd3049fe
+        generation: 2
+        image: sha256:9a781abe7581cc141e14a7e404ec34125b3e89c008b14f4e7b41e094fd3049fe
+      tag: latest
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-03-03T23:36:55Z"
+    labels:
+      app: backend
+    name: backend
+    namespace: yangd2019-review-service
+    resourceVersion: "64951500"
+    selfLink: /apis/build.openshift.io/v1/namespaces/yangd2019-review-service/buildconfigs/backend
+    uid: de08dab4-5da7-11ea-a168-0a580a810005
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: backend:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      contextDir: todo-backend
+      git:
+        ref: review-service
+        uri: https://github.com/yangd2019/DO288-apps
+      type: Git
+    strategy:
+      sourceStrategy:
+        env:
+        - name: npm_config_registry
+          value: http://nexus-common.apps.ocp-eu2.prod.nextcle.com/repository/nodejs
+        from:
+          kind: ImageStreamTag
+          name: nodejs:8
+          namespace: openshift
+      type: Source
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - github:
+        secret: 2nieWcraLsqWRRG_zyoV
+      type: GitHub
+    - generic:
+        secret: 1Vvkmj_lWfVu-tfSxWBk
+      type: Generic
+    - type: ConfigChange
+    - imageChange:
+        lastTriggeredImageID: image-registry.openshift-image-registry.svc:5000/openshift/nodejs@sha256:52b6114a36532a46867e56355324436063ba89987ca6b91634c0fd4a5cb24822
+      type: ImageChange
+  status:
+    lastVersion: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-03-03T23:36:55Z"
+    generation: 7
+    labels:
+      app: backend
+    name: backend
+    namespace: yangd2019-review-service
+    resourceVersion: "65859590"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/yangd2019-review-service/deploymentconfigs/backend
+    uid: de20058a-5da7-11ea-bc92-0a580a800004
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: backend
+      deploymentconfig: backend
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: backend
+          deploymentconfig: backend
+      spec:
+        containers:
+        - env:
+          - name: DATABASE_NAME
+            value: todo
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: tododb
+          - name: DATABASE_SVC
+            value: tododb
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                key: user
+                name: tododb
+          - name: DATABASE_INIT
+            valueFrom:
+              configMapKeyRef:
+                key: init
+                name: todoapp
+          image: image-registry.openshift-image-registry.svc:5000/yangd2019-review-service/backend@sha256:12c279c9fddc21c1f8014dbe08a5f1a6035e6f79e515271207779b362c3b8ccd
+          imagePullPolicy: Always
+          name: backend
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - backend
+        from:
+          kind: ImageStreamTag
+          name: backend:latest
+          namespace: yangd2019-review-service
+        lastTriggeredImage: image-registry.openshift-image-registry.svc:5000/yangd2019-review-service/backend@sha256:12c279c9fddc21c1f8014dbe08a5f1a6035e6f79e515271207779b362c3b8ccd
+      type: ImageChange
+  status:
+    availableReplicas: 0
+    conditions:
+    - lastTransitionTime: "2020-03-03T23:43:54Z"
+      lastUpdateTime: "2020-03-03T23:43:57Z"
+      message: replication controller "backend-2" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-03-04T21:41:28Z"
+      lastUpdateTime: "2020-03-04T21:41:28Z"
+      message: Deployment config does not have minimum availability.
+      status: "False"
+      type: Available
+    details:
+      causes:
+      - type: Manual
+      message: manual change
+    latestVersion: 2
+    observedGeneration: 7
+    replicas: 1
+    unavailableReplicas: 1
+    updatedReplicas: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-03-03T22:53:36Z"
+    generation: 7
+    labels:
+      app: tododb
+    name: tododb
+    namespace: yangd2019-review-service
+    resourceVersion: "64932297"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/yangd2019-review-service/deploymentconfigs/tododb
+    uid: d10bfea6-5da1-11ea-a9dc-0a580a820004
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: tododb
+      deploymentconfig: tododb
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: tododb
+          deploymentconfig: tododb
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_DATABASE
+            value: todo
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: tododb
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                key: user
+                name: tododb
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: tododb
+          - name: USER
+            valueFrom:
+              secretKeyRef:
+                key: user
+                name: tododb
+          image: registry.access.redhat.com/rhscl/mysql-57-rhel7@sha256:9a781abe7581cc141e14a7e404ec34125b3e89c008b14f4e7b41e094fd3049fe
+          imagePullPolicy: Always
+          name: tododb
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - tododb
+        from:
+          kind: ImageStreamTag
+          name: tododb:latest
+          namespace: yangd2019-review-service
+        lastTriggeredImage: registry.access.redhat.com/rhscl/mysql-57-rhel7@sha256:9a781abe7581cc141e14a7e404ec34125b3e89c008b14f4e7b41e094fd3049fe
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-03-03T22:53:56Z"
+      lastUpdateTime: "2020-03-03T22:53:56Z"
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-03-03T23:05:52Z"
+      lastUpdateTime: "2020-03-03T23:05:55Z"
+      message: replication controller "tododb-2" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    details:
+      causes:
+      - type: Manual
+      message: manual change
+    latestVersion: 2
+    observedGeneration: 7
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-03-03T23:36:55Z"
+    labels:
+      app: backend
+    name: backend
+    namespace: yangd2019-review-service
+    resourceVersion: "64951498"
+    selfLink: /api/v1/namespaces/yangd2019-review-service/services/backend
+    uid: de3303e7-5da7-11ea-954c-0a023c95c252
+  spec:
+    clusterIP: 172.30.139.70
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: backend
+      deploymentconfig: backend
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-03-03T22:53:36Z"
+    labels:
+      app: tododb
+    name: tododb
+    namespace: yangd2019-review-service
+    resourceVersion: "64924171"
+    selfLink: /api/v1/namespaces/yangd2019-review-service/services/tododb
+    uid: d11f1f01-5da1-11ea-954c-0a023c95c252
+  spec:
+    clusterIP: 172.30.203.90
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      app: tododb
+      deploymentconfig: tododb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
