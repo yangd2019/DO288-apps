@@ -1,0 +1,45 @@
+{
+  "apiVersion" : "v1",
+  "kind" : "Service",
+  "metadata" : {
+    "annotations" : {
+      "fabric8.io/git-branch" : "micro-config",
+      "fabric8.io/git-commit" : "ff5ab13fb1ae15c6f3ac33633e9abb8bceb9be26",
+      "fabric8.io/git-url" : "https://github.com/yangd2019/DO288-apps",
+      "prometheus.io/port" : "9779",
+      "prometheus.io/scrape" : "true"
+    },
+    "creationTimestamp" : "2020-02-23T18:48:29Z",
+    "labels" : {
+      "app" : "hello",
+      "expose" : "true",
+      "group" : "com.redhat.training.openshift",
+      "provider" : "fabric8",
+      "version" : "1.0"
+    },
+    "name" : "hello",
+    "namespace" : "yangd2019-micro-java",
+    "resourceVersion" : "55923329",
+    "selfLink" : "/api/v1/namespaces/yangd2019-micro-java/services/hello",
+    "uid" : "1538288d-566d-11ea-8909-0a023c95c252"
+  },
+  "spec" : {
+    "clusterIP" : "172.30.95.23",
+    "ports" : [ {
+      "name" : "http",
+      "port" : 8080,
+      "protocol" : "TCP",
+      "targetPort" : 8080
+    } ],
+    "selector" : {
+      "app" : "hello",
+      "group" : "com.redhat.training.openshift",
+      "provider" : "fabric8"
+    },
+    "sessionAffinity" : "None",
+    "type" : "ClusterIP"
+  },
+  "status" : {
+    "loadBalancer" : { }
+  }
+}
